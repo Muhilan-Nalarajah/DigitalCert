@@ -1,0 +1,395 @@
+input boolean_filter_operators {
+  _eq: Boolean
+  _neq: Boolean
+  _null: Boolean
+  _nnull: Boolean
+}
+
+type certificates {
+  id: ID!
+  user_created: String
+  date_created: Date
+  date_created_func: datetime_functions
+  date_updated: Date
+  date_updated_func: datetime_functions
+  full_name: String
+  ic: String
+  phone: String
+
+  """CDA Number / DM number / PM number"""
+  cda_number: String
+  total_days: Int
+  test_score: String
+  marks: String
+  location: String
+  course: String
+  course_start_date: String
+  course_end_date: String
+
+  """Email of the certificate holder"""
+  email: String
+  certificate: String
+  number_title: String
+  position: String
+}
+
+type certificates_aggregated {
+  group: JSON
+  countAll: Int
+  count: certificates_aggregated_count
+  countDistinct: certificates_aggregated_count
+  avg: certificates_aggregated_fields
+  sum: certificates_aggregated_fields
+  avgDistinct: certificates_aggregated_fields
+  sumDistinct: certificates_aggregated_fields
+  min: certificates_aggregated_fields
+  max: certificates_aggregated_fields
+}
+
+type certificates_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  date_updated: Int
+  full_name: Int
+  ic: Int
+  phone: Int
+
+  """CDA Number / DM number / PM number"""
+  cda_number: Int
+  total_days: Int
+  test_score: Int
+  marks: Int
+  location: Int
+  course: Int
+  course_start_date: Int
+  course_end_date: Int
+
+  """Email of the certificate holder"""
+  email: Int
+  certificate: Int
+  number_title: Int
+  position: Int
+}
+
+type certificates_aggregated_fields {
+  total_days: Float
+}
+
+input certificates_filter {
+  id: string_filter_operators
+  user_created: string_filter_operators
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  full_name: string_filter_operators
+  ic: string_filter_operators
+  phone: string_filter_operators
+  cda_number: string_filter_operators
+  total_days: number_filter_operators
+  test_score: string_filter_operators
+  marks: string_filter_operators
+  location: string_filter_operators
+  course: string_filter_operators
+  course_start_date: string_filter_operators
+  course_end_date: string_filter_operators
+  email: string_filter_operators
+  certificate: string_filter_operators
+  number_title: string_filter_operators
+  position: string_filter_operators
+  _and: [certificates_filter]
+  _or: [certificates_filter]
+}
+
+input create_student_login_input {
+  id: ID
+  date_created: Date
+  email: String
+  phone: String
+  ic: String
+}
+
+input create_verified_details_input {
+  id: ID
+  user_created: String
+  date_created: Date
+  date_updated: Date
+
+  """Email of the person who wanted to verify the certificate"""
+  email: String
+
+  """Phone number of the person who wanted to verify the certificate"""
+  phone: String
+
+  """Organization of the person"""
+  organization: String
+
+  """Certificate number to be verified"""
+  certificate_number: String
+  verified: Boolean
+}
+
+"""ISO8601 Date values"""
+scalar Date
+
+input date_filter_operators {
+  _eq: String
+  _neq: String
+  _gt: String
+  _gte: String
+  _lt: String
+  _lte: String
+  _null: Boolean
+  _nnull: Boolean
+  _in: [String]
+  _nin: [String]
+  _between: [GraphQLStringOrFloat]
+  _nbetween: [GraphQLStringOrFloat]
+}
+
+input datetime_function_filter_operators {
+  year: number_filter_operators
+  month: number_filter_operators
+  week: number_filter_operators
+  day: number_filter_operators
+  weekday: number_filter_operators
+  hour: number_filter_operators
+  minute: number_filter_operators
+  second: number_filter_operators
+}
+
+type datetime_functions {
+  year: Int
+  month: Int
+  week: Int
+  day: Int
+  weekday: Int
+  hour: Int
+  minute: Int
+  second: Int
+}
+
+"""A Float or a String"""
+scalar GraphQLStringOrFloat
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Mutation {
+  create_verified_details_items(filter: verified_details_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_verified_details_input!]): [verified_details!]!
+  create_verified_details_item(data: create_verified_details_input!): verified_details
+  create_student_login_items(filter: student_login_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_student_login_input!]): [student_login!]!
+  create_student_login_item(data: create_student_login_input!): student_login
+  update_verified_details_items(filter: verified_details_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_verified_details_input!): [verified_details!]!
+  update_verified_details_batch(filter: verified_details_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_verified_details_input!]): [verified_details!]!
+  update_verified_details_item(id: ID!, data: update_verified_details_input!): verified_details
+  update_certificates_items(filter: certificates_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_certificates_input!): [certificates!]!
+  update_certificates_batch(filter: certificates_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_certificates_input!]): [certificates!]!
+  update_certificates_item(id: ID!, data: update_certificates_input!): certificates
+  update_student_login_items(filter: student_login_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_student_login_input!): [student_login!]!
+  update_student_login_batch(filter: student_login_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_student_login_input!]): [student_login!]!
+  update_student_login_item(id: ID!, data: update_student_login_input!): student_login
+}
+
+input number_filter_operators {
+  _eq: GraphQLStringOrFloat
+  _neq: GraphQLStringOrFloat
+  _in: [GraphQLStringOrFloat]
+  _nin: [GraphQLStringOrFloat]
+  _gt: GraphQLStringOrFloat
+  _gte: GraphQLStringOrFloat
+  _lt: GraphQLStringOrFloat
+  _lte: GraphQLStringOrFloat
+  _null: Boolean
+  _nnull: Boolean
+  _between: [GraphQLStringOrFloat]
+  _nbetween: [GraphQLStringOrFloat]
+}
+
+type Query {
+  verified_details(filter: verified_details_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [verified_details!]!
+  verified_details_by_id(id: ID!): verified_details
+  verified_details_aggregated(groupBy: [String], filter: verified_details_filter, limit: Int, search: String, sort: [String]): [verified_details_aggregated!]!
+  certificates(filter: certificates_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [certificates!]!
+  certificates_by_id(id: ID!): certificates
+  certificates_aggregated(groupBy: [String], filter: certificates_filter, limit: Int, search: String, sort: [String]): [certificates_aggregated!]!
+  student_login(filter: student_login_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [student_login!]!
+  student_login_by_id(id: ID!): student_login
+  student_login_aggregated(groupBy: [String], filter: student_login_filter, limit: Int, search: String, sort: [String]): [student_login_aggregated!]!
+}
+
+input string_filter_operators {
+  _eq: String
+  _neq: String
+  _contains: String
+  _icontains: String
+  _ncontains: String
+  _starts_with: String
+  _nstarts_with: String
+  _ends_with: String
+  _nends_with: String
+  _in: [String]
+  _nin: [String]
+  _null: Boolean
+  _nnull: Boolean
+  _empty: Boolean
+  _nempty: Boolean
+}
+
+type student_login {
+  id: ID!
+  date_created: Date
+  date_created_func: datetime_functions
+  email: String
+  phone: String
+  ic: String
+}
+
+type student_login_aggregated {
+  group: JSON
+  countAll: Int
+  count: student_login_aggregated_count
+  countDistinct: student_login_aggregated_count
+}
+
+type student_login_aggregated_count {
+  id: Int
+  date_created: Int
+  email: Int
+  phone: Int
+  ic: Int
+}
+
+input student_login_filter {
+  id: string_filter_operators
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  email: string_filter_operators
+  phone: string_filter_operators
+  ic: string_filter_operators
+  _and: [student_login_filter]
+  _or: [student_login_filter]
+}
+
+input update_certificates_input {
+  id: ID
+  user_created: String
+  date_created: Date
+  date_updated: Date
+  full_name: String
+  ic: String
+  phone: String
+
+  """CDA Number / DM number / PM number"""
+  cda_number: String
+  total_days: Int
+  test_score: String
+  marks: String
+  location: String
+  course: String
+  course_start_date: String
+  course_end_date: String
+
+  """Email of the certificate holder"""
+  email: String
+  certificate: String
+  number_title: String
+  position: String
+}
+
+input update_student_login_input {
+  id: ID
+  date_created: Date
+  email: String
+  phone: String
+  ic: String
+}
+
+input update_verified_details_input {
+  id: ID
+  user_created: String
+  date_created: Date
+  date_updated: Date
+
+  """Email of the person who wanted to verify the certificate"""
+  email: String
+
+  """Phone number of the person who wanted to verify the certificate"""
+  phone: String
+
+  """Organization of the person"""
+  organization: String
+
+  """Certificate number to be verified"""
+  certificate_number: String
+  verified: Boolean
+}
+
+type verified_details {
+  id: ID!
+  user_created: String
+  date_created: Date
+  date_created_func: datetime_functions
+  date_updated: Date
+  date_updated_func: datetime_functions
+
+  """Email of the person who wanted to verify the certificate"""
+  email: String
+
+  """Phone number of the person who wanted to verify the certificate"""
+  phone: String
+
+  """Organization of the person"""
+  organization: String
+
+  """Certificate number to be verified"""
+  certificate_number: String
+  verified: Boolean
+}
+
+type verified_details_aggregated {
+  group: JSON
+  countAll: Int
+  count: verified_details_aggregated_count
+  countDistinct: verified_details_aggregated_count
+}
+
+type verified_details_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  date_updated: Int
+
+  """Email of the person who wanted to verify the certificate"""
+  email: Int
+
+  """Phone number of the person who wanted to verify the certificate"""
+  phone: Int
+
+  """Organization of the person"""
+  organization: Int
+
+  """Certificate number to be verified"""
+  certificate_number: Int
+  verified: Int
+}
+
+input verified_details_filter {
+  id: string_filter_operators
+  user_created: string_filter_operators
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  email: string_filter_operators
+  phone: string_filter_operators
+  organization: string_filter_operators
+  certificate_number: string_filter_operators
+  verified: boolean_filter_operators
+  _and: [verified_details_filter]
+  _or: [verified_details_filter]
+}
+
