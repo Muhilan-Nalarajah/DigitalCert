@@ -151,7 +151,7 @@ const Edit = () => {
                             <div>
                                 <div>
                                     <p className="text-lg" >
-                                        Certificate for {certificate.course} course counducted from {certificate.course_start_date} to {certificate.course_end_date}
+                                        Certificate for {certificate.course} course conducted from {certificate.course_start_date} to {certificate.course_end_date}
                                     </p>
                                     <p className="text-lg" >
                                         Location:  {certificate.location}
