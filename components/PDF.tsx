@@ -169,33 +169,34 @@ const pdfModes = {
         }
     },
     uog: {
-        bgImage: "/uog.jpeg",
+        bgImage: "/uog.jpg",
         nameNode: {
-            viewTop: "39%",
+            viewTop: "37%",
             fontSize: "25"
         },
         course: {
             present: true,
-            viewTop: "53.4%",
-            fontSize: "20"
+            viewTop: "50.4%",
+            fontSize: "25"
         },
         position: {
-            viewTop: "59.9%",
+            viewTop: "62%",
             fontSize: "17"
         },
         dates: {
-            present: false,
+            present: true,
             fontSize: "15",
-            viewTop: "55%"
+            viewTop: "68%"
         },
         grantDate: {
-            fontSize: "15",
+            present: false,
+            fontSize: "1",
             viewTop: "63%",
             marginLeft: "235"
         },
         cds: {
             fontSize: "15",
-            viewTop: "65.4%",
+            viewTop: "72%",
             marginLeft: "0"
         }
     }
