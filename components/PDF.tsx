@@ -109,7 +109,7 @@ const pdfModes = {
     cpa: {
         bgImage: "/cpa.jpeg",
         nameNode: {
-            viewTop: "39%",
+            viewTop: "38%",
             fontSize: "25"
         },
         course: {
@@ -118,7 +118,7 @@ const pdfModes = {
             fontSize: "20"
         },
         position: {
-            viewTop: "59.9%",
+            viewTop: "60.5%",
             fontSize: "17"
         },
         dates: {
@@ -128,28 +128,28 @@ const pdfModes = {
         },
         grantDate: {
             fontSize: "15",
-            viewTop: "63%",
-            marginLeft: "235"
+            viewTop: "64.3%",
+            marginLeft: "250"
         },
         cds: {
             fontSize: "15",
-            viewTop: "65.4%",
+            viewTop: "67.4%",
             marginLeft: "0"
         }
     },
     tui: {
         bgImage: "/tui.jpeg",
         nameNode: {
-            viewTop: "39%",
+            viewTop: "35%",
             fontSize: "25"
         },
         course: {
             present: true,
-            viewTop: "53.4%",
+            viewTop: "50%",
             fontSize: "20"
         },
         position: {
-            viewTop: "59.9%",
+            viewTop: "61%",
             fontSize: "17"
         },
         dates: {
@@ -159,13 +159,13 @@ const pdfModes = {
         },
         grantDate: {
             fontSize: "15",
-            viewTop: "63%",
-            marginLeft: "235"
+            viewTop: "64.7%",
+            marginLeft: "200"
         },
         cds: {
             fontSize: "15",
-            viewTop: "65.4%",
-            marginLeft: "0"
+            viewTop: "67.8%",
+            marginLeft: "103"
         }
     },
     uog: {
