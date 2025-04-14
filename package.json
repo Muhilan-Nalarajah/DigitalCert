@@ -13,7 +13,7 @@
     "start": "next start",
     "lint": "next lint",
     "generate-schema": "pnpm zeus ./schema.graphql ./ --typescript",
-    "generate-graphql": " pnpm get-graphql-schema https://data.digitalverifycert.org/graphql --header Authorization=Bearer iFCfZbWd4mPELGf6MggmylDgFt3nBd5q > schema.graphql"
+    "generate-graphql": " pnpm get-graphql-schema https://13.251.32.164/graphql --header Authorization=Bearer iFCfZbWd4mPELGf6MggmylDgFt3nBd5q > schema.graphql"
   },
   "dependencies": {
     "@next/font": "13.1.5",
