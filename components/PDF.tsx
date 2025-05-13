@@ -365,7 +365,7 @@ const CertificatePDF = ({
 };
 
 const DownloadLink = (props: ICertificateType) => (
-    <PDFDownloadLink className='bg-green-300 p-4 rounded-md inline-block' fileName="certificate.pdf" document={<CertificatePDF {...props} />} >
+    <PDFDownloadLink className='bg-green-300 p-4 rounded-md inline-block hidden' fileName="certificate.pdf" document={<CertificatePDF {...props} />} >
         {({ blob, url, loading, error }) =>
             loading ? 'Loading document...' : "Download Certificate"
         }
