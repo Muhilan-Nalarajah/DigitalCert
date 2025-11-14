@@ -109,7 +109,7 @@ const pdfModes = {
     cpa: {
         bgImage: "/cpa.jpeg",
         nameNode: {
-            viewTop: "38%",
+            viewTop: "37%",
             fontSize: "25"
         },
         course: {
@@ -118,7 +118,7 @@ const pdfModes = {
             fontSize: "20"
         },
         position: {
-            viewTop: "60.5%",
+            viewTop: "59.9%",
             fontSize: "17"
         },
         dates: {
@@ -128,24 +128,26 @@ const pdfModes = {
         },
         grantDate: {
             fontSize: "15",
-            viewTop: "64.3%",
-            marginLeft: "250"
+            viewTop: "64.5%",
+            marginLeft: "244"
         },
         cds: {
             fontSize: "15",
-            viewTop: "67.4%",
+            viewTop: "67%",
             marginLeft: "0"
         }
     },
     tui: {
-        bgImage: "/tui.jpeg",
+        bgImage: "/tui.png",
         nameNode: {
+            viewLeft: "4%",
             viewTop: "35%",
             fontSize: "25"
         },
         course: {
             present: true,
-            viewTop: "50%",
+            viewLeft: "2%",
+            viewTop: "50.5%",
             fontSize: "20"
         },
         position: {
@@ -158,48 +160,87 @@ const pdfModes = {
             viewTop: "55%"
         },
         grantDate: {
-            fontSize: "15",
-            viewTop: "64.7%",
-            marginLeft: "200"
+            fontSize: "14",
+            viewLeft: "17%",
+            viewTop: "64.5%"
         },
         cds: {
             fontSize: "15",
-            viewTop: "67.8%",
-            marginLeft: "103"
+            viewTop: "66.5%",
+            marginLeft: "0"
         }
     },
-    uog: {
-        bgImage: "/uog.jpg",
+    til: {
+        bgImage: "/til.png",
         nameNode: {
-            viewTop: "37%",
+            viewLeft: "4%",
+            viewTop: "38%",
             fontSize: "25"
         },
         course: {
             present: true,
-            viewTop: "50.4%",
-            fontSize: "25"
+            viewLeft: "2%",
+            viewTop: "52%",
+            fontSize: "20"
         },
         position: {
+            viewLeft: "2%",
             viewTop: "62%",
             fontSize: "17"
         },
         dates: {
-            present: true,
+            present: false,
+            viewLeft: "4%",
             fontSize: "15",
-            viewTop: "68%"
+            viewTop: "55%"
         },
         grantDate: {
-            present: false,
-            fontSize: "1",
-            viewTop: "63%",
-            marginLeft: "235"
+            fontSize: "15",
+            viewLeft: "6.5%",
+            viewTop: "68.5%"
         },
         cds: {
             fontSize: "15",
-            viewTop: "72%",
-            marginLeft: "0"
+            viewLeft: "-3.8%",
+            viewTop: "70.5%"
         }
-    }
+    },
+    CambridgeLans: {
+        bgImage: "/CambridgeLans.png",
+        orientation: "landscape",
+        nameNode: {
+            viewLeft: "0%",
+            viewTop: "36%",
+            fontSize: "25"
+        },
+        course: {
+            present: true,
+            viewLeft: "0%",
+            viewTop: "53%",
+            fontSize: "20"
+        },
+        position: {
+            viewLeft: "0%",
+            viewTop: "63%",
+            fontSize: "17"
+        },
+        dates: {
+            present: false,
+            fontSize: "15",
+            viewLeft: "0%",
+            viewTop: "80%"
+        },
+        grantDate: {
+            fontSize: "15",
+            viewLeft: "8%",
+            viewTop: "68%"
+        },
+        cds: {
+            fontSize: "15",
+            viewLeft: "0%",
+            viewTop: "71.5%"
+        }
+    },
 };
 
 
@@ -231,8 +272,12 @@ const CertificatePDF = ({
                 setCtx(pdfModes.tui)
                 break;
 
-            case "UOG":
-                setCtx(pdfModes.uog)
+            case "TIL":
+                setCtx(pdfModes.til)
+                break;
+
+            case "CambridgeLans":
+                setCtx(pdfModes.CambridgeLans)
                 break;
 
             default:
@@ -258,12 +303,12 @@ const CertificatePDF = ({
 
     return (
         <Document>
-            <Page size={"A4"} wrap={false} style={{ flexDirection: "row", backgroundColor: "#fff" }} >
+            <Page size={"A4"} orientation={ctx.orientation ?? "portrait"} wrap={false} style={{ flexDirection: "row", backgroundColor: "#fff" }} >
                 <View style={{ position: "relative", top: 0, height: "100%", width: "100%" }} >
                     <Image source={ctx.bgImage} src={ctx.bgImage} style={{ width: '100%', height: '100%' }} />
                     <View style={{
                         position: 'absolute',
-                        left: '0%',
+                        left: ctx.nameNode.viewLeft ?? '0%',
                         top: ctx.nameNode.viewTop,
                         width: "100%"
                     }} >
@@ -278,7 +323,7 @@ const CertificatePDF = ({
                     {
                         ctx.course.present && <View style={{
                             position: 'absolute',
-                            left: '0%',
+                            left: ctx.course.viewLeft ?? '0%',
                             top: ctx.course.viewTop,
                             width: "100%"
                         }} >
@@ -294,7 +339,7 @@ const CertificatePDF = ({
                     {
                         <View style={{
                             position: 'absolute',
-                            left: ctx.position.marginLeft ? ctx.position.marginLeft : "0%",
+                            left: ctx.position.viewLeft ?? ctx.position.marginLeft ?? "0%",
                             top: ctx.position.viewTop,
                             width: "100%"
                         }} >
@@ -311,7 +356,7 @@ const CertificatePDF = ({
                     {
                         ctx.dates.present && <View style={{
                             position: 'absolute',
-                            left: '0%',
+                            left: ctx.dates.viewLeft ?? '0%',
                             top: ctx.dates.viewTop,
                             width: "100%"
                         }} >
@@ -328,7 +373,7 @@ const CertificatePDF = ({
 
                     <View style={{
                         position: 'absolute',
-                        left: '0%',
+                        left: ctx.grantDate.viewLeft ?? '0%',
                         top: ctx.grantDate.viewTop,
                         width: "100%"
                     }} >
@@ -344,7 +389,7 @@ const CertificatePDF = ({
 
                     <View style={{
                         position: 'absolute',
-                        left: '0%',
+                        left: ctx.cds.viewLeft ?? '0%',
                         top: ctx.cds.viewTop,
                         width: "100%"
                     }} >
@@ -365,7 +410,7 @@ const CertificatePDF = ({
 };
 
 const DownloadLink = (props: ICertificateType) => (
-    <PDFDownloadLink className='bg-green-300 p-4 rounded-md inline-block hidden' fileName="certificate.pdf" document={<CertificatePDF {...props} />} >
+    <PDFDownloadLink className='bg-green-300 p-4 rounded-md inline-block' fileName="certificate.pdf" document={<CertificatePDF {...props} />} >
         {({ blob, url, loading, error }) =>
             loading ? 'Loading document...' : "Download Certificate"
         }
