@@ -9,6 +9,72 @@ import dynamic from "next/dynamic";
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const { id } = ctx.query;
 
+    if (typeof id !== "string" || !id) {
+    return { notFound: true };
+  }
+
+    try {
+    const verifyRequest = await chain("query")({
+      verified_details_by_id: [
+        { id },
+        { certificate_number: true }
+      ]
+    });
+
+    const certificateNumber =
+      verifyRequest?.verified_details_by_id?.certificate_number;
+
+    if (!certificateNumber) {
+      console.warn("Verification record not found:", id);
+      return { notFound: true };
+    }
+
+    const certificatesObj = await chain("query")({
+      certificates: [
+        {
+          filter: {
+            cda_number: {
+              _eq: certificateNumber
+            }
+          },
+          limit: 1
+        },
+        {
+          cda_number: true,
+          id: true,
+          full_name: true,
+          course: true,
+          course_end_date: true,
+          course_start_date: true,
+          marks: true,
+          location: true,
+          certificate: true,
+          number_title: true,
+          position: true
+        }
+      ]
+    });
+
+    const certificate = certificatesObj?.certificates?.[0];
+
+    if (!certificate) {
+      console.warn("Certificate not found:", certificateNumber);
+      return { notFound: true };
+    }
+
+    return {
+      props: {
+        certificate
+      }
+    };
+
+  } catch (error) {
+    console.error("Certificate verification failed:", error);
+
+    throw error;
+  }
+};
+
     const verifyRequest = await chain("query")({
         verified_details_by_id: [
             {
