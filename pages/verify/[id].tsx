@@ -75,61 +75,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 };
 
-    const verifyRequest = await chain("query")({
-        verified_details_by_id: [
-            {
-                id: id as string
-            },
-            {
-                certificate_number: true
-            }
-        ]
-    });
-    if (verifyRequest === undefined) {
-        return {
-            notFound: true
-        };
-    };
-
-    const certificatesObj = await chain("query")({
-        certificates: [
-            {
-                filter: {
-                    cda_number: {
-                        _eq: verifyRequest.verified_details_by_id?.certificate_number
-                    }
-                },
-                limit: 1
-            },
-            {
-                cda_number: true,
-                id: true,
-                full_name: true,
-                course: true,
-                course_end_date: true,
-                course_start_date: true,
-                marks: true,
-                location: true,
-                certificate: true,
-                number_title: true,
-                position: true
-            }
-        ]
-    });
-
-    if (certificatesObj.certificates.length === 0) {
-        return {
-            notFound: true
-        };
-    };
-
-    return {
-        props: {
-            certificate: certificatesObj.certificates[0]
-        }
-    };
-};
-
 const DynamicPDF = dynamic(() => import("../../components/PDF"), {
     ssr: false
 });
